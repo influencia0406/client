@@ -5,6 +5,7 @@ import Render from './render'
 import {bindActionCreators} from 'redux'
 import {routeAppend} from '../actions/router'
 import Files from './files'
+import flags from '../util/feature-flags'
 import type {Props as RenderProps} from './render'
 
 export type Props = {
@@ -33,6 +34,7 @@ class Folders extends Component<void, Props, State> {
         onClick={path => this.props.routeAppend(path)}
         onSwitchTab={showingPrivate => this.setState({showingPrivate})}
         showingPrivate={this.state.showingPrivate}
+        showComingSoon={!flags.tabFoldersEnabled}
       />
     )
   }
