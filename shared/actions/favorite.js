@@ -79,6 +79,7 @@ const folderToProps = (folders: Array<Folder>, username: string = ''): FolderPro
     showingPrivate: true,
     smallMode: false,
     showComingSoon: !flags.tabFoldersEnabled,
+    username,
     privateBadge,
     publicBadge,
     private: {
