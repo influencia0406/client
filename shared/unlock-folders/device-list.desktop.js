@@ -46,7 +46,7 @@ const styles = {
   infoText: {
     marginTop: 30,
     marginBottom: 8,
-    textAlign: 'center'
+    textAlign: 'center',
   },
 
   devicesContainer: {
@@ -56,25 +56,25 @@ const styles = {
     backgroundColor: globalColors.lightGrey,
     alignSelf: 'center',
     paddingTop: 15,
-    paddingBottom: 15
+    paddingBottom: 15,
   },
 
   buttonsContainer: {
     ...globalStyles.flexBoxRow,
     marginTop: 15,
     marginRight: 30,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
 
   enterPaperKey: {
     height: 32,
     width: 236,
-    marginRight: 7
+    marginRight: 7,
   },
 
   accessFolders: {
-    marginRight: 0
-  }
+    marginRight: 0,
+  },
 }
 
 const deviceRowStyles = {
@@ -82,6 +82,6 @@ const deviceRowStyles = {
     width: 24,
     marginLeft: 33,
     display: 'flex',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 }

@@ -18,7 +18,7 @@ const initialState: State = {
   phase: 'dead',
   waiting: false,
   devices: null,
-  paperkeyError: null
+  paperkeyError: null,
 }
 
 export default function (state: State = initialState, action: UnlockFolderActions): State {
@@ -33,11 +33,11 @@ export default function (state: State = initialState, action: UnlockFolderAction
       } else {
         const devices = action.payload.devices.map(({name, type, deviceID}) => ({
           type: toDeviceType(type),
-          name, deviceID
+          name, deviceID,
         }))
         return {
           ...state,
-          devices
+          devices,
         }
       }
 
@@ -48,36 +48,36 @@ export default function (state: State = initialState, action: UnlockFolderAction
 
       return {
         ...state,
-        waiting: action.payload
+        waiting: action.payload,
       }
 
     case Constants.onBackFromPaperKey:
       return {
         ...state,
-        phase: 'promptOtherDevice'
+        phase: 'promptOtherDevice',
       }
 
     case Constants.toPaperKeyInput:
       return {
         ...state,
-        phase: 'paperKeyInput'
+        phase: 'paperKeyInput',
       }
     case Constants.checkPaperKey:
       if (action.error) {
         return {
           ...state,
-          paperkeyError: action.payload.error
+          paperkeyError: action.payload.error,
         }
       } else {
         return {
           ...state,
-          phase: 'success'
+          phase: 'success',
         }
       }
     case Constants.finish:
       return {
         ...state,
-        phase: 'dead'
+        phase: 'dead',
       }
     default:
       return state
@@ -91,7 +91,7 @@ export const mocks: {[key: string]: State} = {
     phase: 'promptOtherDevice',
     waiting: false,
     devices: [{type: 'desktop', name: 'Cray', deviceID: 'bada55'}],
-    paperkeyError: null
+    paperkeyError: null,
   },
   promptOtherMultiDevice: {
     phase: 'promptOtherDevice',
@@ -99,9 +99,9 @@ export const mocks: {[key: string]: State} = {
     devices: [
       {type: 'desktop', name: 'Cray', deviceID: 'c0ffee'},
       {type: 'desktop', name: 'Watson', deviceID: 'beef'},
-      {type: 'mobile', name: 'Newton', deviceID: 'dead'}
+      {type: 'mobile', name: 'Newton', deviceID: 'dead'},
     ],
-    paperkeyError: null
+    paperkeyError: null,
   },
   promptOtherLotsaDevice: {
     phase: 'promptOtherDevice',
@@ -121,33 +121,33 @@ export const mocks: {[key: string]: State} = {
       {type: 'desktop', name: 'Watson', deviceID: 'beeff'},
       {type: 'mobile', name: 'Newton', deviceID: 'deada'},
       {type: 'desktop', name: 'Watson', deviceID: 'beefc'},
-      {type: 'mobile', name: 'Newton', deviceID: 'dead1'}
+      {type: 'mobile', name: 'Newton', deviceID: 'dead1'},
     ],
     paperkey: null,
-    paperkeyError: null
+    paperkeyError: null,
   },
   paperKeyInput: {
     phase: 'paperKeyInput',
     waiting: false,
     devices: [],
-    paperkeyError: null
+    paperkeyError: null,
   },
   paperKeyInputWithError: {
     phase: 'paperKeyInput',
     waiting: false,
     devices: [],
-    paperkeyError: new HiddenString('Invalid paper key')
+    paperkeyError: new HiddenString('Invalid paper key'),
   },
   paperKeyInputWithErrorWaiting: {
     phase: 'paperKeyInput',
     waiting: true,
     devices: [],
-    paperkeyError: new HiddenString('Invalid paper key')
+    paperkeyError: new HiddenString('Invalid paper key'),
   },
   success: {
     phase: 'success',
     waiting: false,
     devices: [],
-    paperkeyError: null
-  }
+    paperkeyError: null,
+  },
 }

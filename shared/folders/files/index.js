@@ -37,7 +37,7 @@ class Files extends Component<void, Props, State> {
   constructor (props) {
     super(props)
     this.state = {
-      visiblePopupMenu: false
+      visiblePopupMenu: false,
     }
     this._checkFolderExistence(props)
   }
@@ -56,7 +56,7 @@ class Files extends Component<void, Props, State> {
         theme={folder.isPublic ? 'public' : 'private'}
         popupMenuItems={[
           {onClick: openCurrentFolder, title: 'Open folder'},
-          {onClick: ignoreCurrentFolder, title: 'Ignore'}
+          {onClick: ignoreCurrentFolder, title: 'Ignore'},
         ]}
         visiblePopupMenu={this.state.visiblePopupMenu}
         onTogglePopupMenu={() => this.setState({visiblePopupMenu: !this.state.visiblePopupMenu})}
@@ -77,8 +77,8 @@ class Files extends Component<void, Props, State> {
     return {
       componentAtTop: {
         title: 'Files',
-        element: <ConnectedFiles path={currentPath.get('path')} />
-      }
+        element: <ConnectedFiles path={currentPath.get('path')} />,
+      },
     }
   }
 }
@@ -89,7 +89,7 @@ const ConnectedFiles = connect(
     const folder = folders.find(f => f.path === ownProps.path)
     return {
       folder,
-      username: state.config && state.config.username
+      username: state.config && state.config.username,
     }
   },
   dispatch => bindActionCreators({openInKBFS, ignoreFolder, navigateBack}, dispatch)

@@ -58,7 +58,7 @@ const Connected: Class<ConnectedComponent<OwnProps>> = typedConnect(
     paperkeyError,
     waiting,
     devices,
-    phase
+    phase,
   })
 )(UnlockFolders)
 

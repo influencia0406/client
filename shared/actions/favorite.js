@@ -28,7 +28,7 @@ const folderToProps = (folders: Array<Folder>, username: string = ''): FolderPro
       .map(u => ({
         username: u,
         you: u === username,
-        broken: false
+        broken: false,
       }))
 
     const {sortName, path} = pathFromFolder({users, isPublic: !f.private})
@@ -56,7 +56,7 @@ const folderToProps = (folders: Array<Folder>, username: string = ''): FolderPro
       onRekey: null,
       recentFiles: [],
       waitingForParticipationUnlock: [],
-      youCanUnlock: []
+      youCanUnlock: [],
     }
   }).sort((a, b) => {
     // New first
@@ -83,12 +83,12 @@ const folderToProps = (folders: Array<Folder>, username: string = ''): FolderPro
     publicBadge,
     private: {
       tlfs: priv,
-      isPublic: false
+      isPublic: false,
     },
     public: {
       tlfs: pub,
-      isPublic: true
-    }
+      isPublic: true,
+    },
   }
 }
 
@@ -155,7 +155,7 @@ export function favoriteList (): (dispatch: Dispatch) => void {
 
           NotifyPopup('New Keybase Folders!', {body}, 60 * 10)
         }
-      }
+      },
     }
     engine.rpc(params)
   }

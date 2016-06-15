@@ -24,11 +24,11 @@ class Foo extends Component {
   render () {
     const payload = {
       features: {
-        secretStorage: {allow: true, label: 'store your test passphrase'}
+        secretStorage: {allow: true, label: 'store your test passphrase'},
       },
       prompt: 'Enter a test passphrase',
       retryLabel: '',
-      windowTitle: 'Keybase Test Passphrase'
+      windowTitle: 'Keybase Test Passphrase',
     }
     return (
       <RemoteComponent
@@ -83,7 +83,7 @@ class DevMenu extends Component {
       }},
       {name: 'Stylesheet', hasChildren: true, onClick: () => {
         this.props.routeAppend(['styleSheet'])
-      }}
+      }},
     ]
     return (
       <MenuList items={menuItems} />
@@ -93,7 +93,7 @@ class DevMenu extends Component {
   static parseRoute () {
     return {
       componentAtTop: {title: 'Dev Menu'},
-      subRoutes: {developer, login, pinentry, tracker, components, componentsUpdate, styleSheet, dumbSheet}
+      subRoutes: {developer, login, pinentry, tracker, components, componentsUpdate, styleSheet, dumbSheet},
     }
   }
 }
@@ -107,7 +107,7 @@ export default connect(
       logout: () => dispatch(logout()),
       pushNewSearch: () => dispatch(pushNewSearch()),
       pushNewProfile: username => dispatch(pushNewProfile(username)),
-      showTrackerListener: username => dispatch(pushDebugTracker(username))
+      showTrackerListener: username => dispatch(pushDebugTracker(username)),
     }
   }
 )(DevMenu)

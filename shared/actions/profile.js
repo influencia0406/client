@@ -12,12 +12,12 @@ export function pushNewProfile (username: string) : AsyncAction {
     dispatch({
       type: Constants.initProfile,
       payload: {
-        username
-      }
+        username,
+      },
     })
     dispatch(routeAppend({
       path: 'profile',
-      username
+      username,
     }))
 
     // always refresh, TODO some caching strategy
@@ -29,7 +29,7 @@ export function refreshProfile (username: string) : AsyncAction {
   return function (dispatch) {
     dispatch({
       type: Constants.profileLoading,
-      payload: username
+      payload: username,
     })
 
     const incomingMap: incomingCallMapType = {
@@ -44,8 +44,8 @@ export function refreshProfile (username: string) : AsyncAction {
           type: Constants.profileReceivedDisplayKey,
           payload: {
             username,
-            key: {...key, type: 'PGP', display}
-          }
+            key: {...key, type: 'PGP', display},
+          },
         })
 
         response.result()
@@ -55,8 +55,8 @@ export function refreshProfile (username: string) : AsyncAction {
           type: Constants.profileCheckingNetworks,
           payload: {
             username,
-            networks: proofs.map(p => p.proof.key)
-          }
+            networks: proofs.map(p => p.proof.key),
+          },
         })
 
         response.result()
@@ -65,27 +65,27 @@ export function refreshProfile (username: string) : AsyncAction {
         const {
           lcr: {
             proofResult: {
-              state: proofState
-            }
-          }
+              state: proofState,
+            },
+          },
         } = param
 
         const {
           rp: {
             key: network,
-            value: display
-          }
+            value: display,
+          },
         } = param
 
         const warning = {
           [enums['tempFailure']]: 'Temporarily unavailable',
-          [enums['looking']]: 'Looking'
+          [enums['looking']]: 'Looking',
         }[proofState]
         const error = {
           [enums['none']]: 'No proof',
           [enums['permFailure']]: 'Failed',
           [enums['superseded']]: 'Superseded',
-          [enums['revoked']]: 'Revoked'
+          [enums['revoked']]: 'Revoked',
         }[proofState]
 
         dispatch({
@@ -96,9 +96,9 @@ export function refreshProfile (username: string) : AsyncAction {
             update: {
               display,
               warning,
-              error
-            }
-          }
+              error,
+            },
+          },
         })
 
         response.result()
@@ -106,7 +106,7 @@ export function refreshProfile (username: string) : AsyncAction {
 
       'keybase.1.identifyUi.finish': (param, response) => {
         response.result()
-      }
+      },
     }
 
     const params : identifyIdentifyRpc = {
@@ -117,11 +117,11 @@ export function refreshProfile (username: string) : AsyncAction {
         reason: {
           type: enums.identify.IdentifyReasonType.none,
           reason: '',
-          resource: ''
+          resource: '',
         },
         source: enums.identify.ClientType.gui,
         useDelegateUI: false,
-        trackStatement: false
+        trackStatement: false,
       },
       incomingCallMap: incomingMap,
       callback: (error, results) => {
@@ -131,14 +131,14 @@ export function refreshProfile (username: string) : AsyncAction {
           console.log('search results', results)
           dispatch({
             type: Constants.profileLoaded,
-            payload: {username, results, error}
+            payload: {username, results, error},
           })
 
           if (results.user) {
             dispatch(loadSummaries([results.user.uid]))
           }
         }
-      }
+      },
     }
 
     engine.rpc(params)
@@ -150,7 +150,7 @@ export function loadSummaries (uids: Array<string>) : AsyncAction {
   return function (dispatch) {
     dispatch({
       type: Constants.profileSummaryLoading,
-      payload: uids
+      payload: uids,
     })
 
     const params : userLoadUncheckedUserSummariesRpc = {
@@ -172,16 +172,16 @@ export function loadSummaries (uids: Array<string>) : AsyncAction {
           dispatch(({
             type: Constants.profileSummaryLoaded,
             payload: error,
-            error: true
+            error: true,
           }: TypedAction<'profile:profileSummaryLoaded', Summaries, any>))
         } else {
           dispatch(({
             type: Constants.profileSummaryLoaded,
             payload: summaries,
-            error: false
+            error: false,
           }: TypedAction<'profile:profileSummaryLoaded', Summaries, any>))
         }
-      }
+      },
     }
 
     engine.rpc(params)

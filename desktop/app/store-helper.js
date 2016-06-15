@@ -9,7 +9,7 @@ export default function (mainWindow) {
   ipcMain.on('subscribeStore', (event, component, selectorParams) => {
     let selector = {
       'tracker': trackerSelector,
-      'menubar': menubarSelector
+      'menubar': menubarSelector,
     }[component]
 
     if (selector) {

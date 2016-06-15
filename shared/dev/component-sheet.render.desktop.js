@@ -24,7 +24,7 @@ export default class Render extends Component<void, void, ComponentState> {
       normalChecked: true,
       normalUnchecked: false,
       disabledChecked: true,
-      disabledUnchecked: false
+      disabledUnchecked: false,
     }
   }
 
@@ -72,9 +72,9 @@ const styles = {
   container: {
     marginTop: 20,
     marginLeft: 20,
-    marginBottom: 10
+    marginBottom: 10,
   },
   containerPopup: {
-    boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.4)'
-  }
+    boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.4)',
+  },
 }

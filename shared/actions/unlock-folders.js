@@ -20,15 +20,15 @@ export function loadDevice (): TypedAsyncAction<LoadDevices> {
           dispatch({
             type: Constants.loadDevices,
             error: true,
-            payload: {error}
+            payload: {error},
           })
         } else {
           dispatch({
             type: Constants.loadDevices,
-            payload: {devices}
+            payload: {devices},
           })
         }
-      }
+      },
     }
 
     engine.rpc(params)

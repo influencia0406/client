@@ -131,7 +131,7 @@ class RemoteManager extends Component {
       onSkip: () => this.props.updateOnSkip(),
       onSnooze: () => this.props.updateOnSnooze(),
       onUpdate: () => this.props.updateOnUpdate(),
-      setAlwaysUpdate: alwaysUpdate => this.props.setAlwaysUpdate(alwaysUpdate)
+      setAlwaysUpdate: alwaysUpdate => this.props.setAlwaysUpdate(alwaysUpdate),
     }
     return (
       <RemoteComponent
@@ -157,7 +157,7 @@ class RemoteManager extends Component {
     let windowOpts = {width: 500, height: 345}
     let options = {
       onCancel: () => this.props.updateOnPauseCancel(),
-      onForce: () => this.props.updateOnForce()
+      onForce: () => this.props.updateOnForce(),
     }
 
     return (
@@ -206,7 +206,7 @@ RemoteManager.propTypes = {
   setAlwaysUpdate: React.PropTypes.func,
   updatePausedState: React.PropTypes.any,
   updateOnForce: React.PropTypes.func,
-  updateOnPauseCancel: React.PropTypes.func
+  updateOnPauseCancel: React.PropTypes.func,
 }
 
 export default connect(
@@ -216,7 +216,7 @@ export default connect(
       trackers: state.tracker.trackers,
       pinentryStates: state.pinentry.pinentryStates || {},
       updateConfirmState: state.updateConfirm,
-      updatePausedState: state.updatePaused
+      updatePausedState: state.updatePaused,
     }
   },
   dispatch => bindActionCreators({
@@ -235,6 +235,6 @@ export default connect(
     updateOnUpdate,
     setAlwaysUpdate,
     updateOnForce,
-    updateOnPauseCancel
+    updateOnPauseCancel,
   }, dispatch)
 )(RemoteManager)
