@@ -2,7 +2,7 @@
 import React, {Component} from 'react'
 import {Box, Text, Terminal, Icon} from '../common-adapters'
 import {globalStyles, globalColors} from '../styles/style-guide'
-import KingOfTheOranges from './fully-cooked'
+import {resolveImageAsURL} from '../../desktop/resolve-root'
 
 type Props = {
   username: string
@@ -27,9 +27,15 @@ class RenderHelp extends Component<void, Props, State> {
       return (
         <Box
           style={{
-            backgroundImage: `url('${KingOfTheOranges}')`,
+            backgroundImage: `url('${resolveImageAsURL('folders', 'king-of-the-oranges.jpg')}')`,
             backgroundSize: 'cover',
-            flexGrow: 1
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0
           }}
           onClick={() => this.setState({showingSoggyCheeto: false})}
         />
