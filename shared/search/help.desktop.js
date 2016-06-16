@@ -1,6 +1,6 @@
 // @flow
 import React, {Component} from 'react'
-import {Box, Text, Terminal} from '../common-adapters'
+import {Box, Text, Terminal, Icon} from '../common-adapters'
 import {globalStyles, globalColors} from '../styles/style-guide'
 import KingOfTheOranges from './fully-cooked'
 
@@ -39,7 +39,7 @@ class RenderHelp extends Component<void, Props, State> {
       <Box style={stylesScrollContainer}>
         <Box style={stylesContainer}>
           <Box style={styleIconHeader}>
-            // TODO (AW): add header icon
+            <Icon type='icon-fancy-people-search-80' />
           </Box>
           <Box style={styleTextHeader}>
             <Text type='Body'>
@@ -106,7 +106,9 @@ const stylesContainer = {
 const styleIconHeader = {
   marginTop: 64,
   height: 80,
-  marginBottom: 16
+  marginBottom: 16,
+  ...globalStyles.flexBoxColumn,
+  justifyContent: 'center'
 }
 
 const styleTextHeader = {
