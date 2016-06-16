@@ -39,9 +39,10 @@ class SimpleTabBarButton extends Component<void, SimpleTabBarButtonProps, void> 
           ...this.props.styleContainer
         }}>
         <Text
-          type='BodySmall'
+          type='BodySmallSemibold'
           style={{
             color: this.props.selected ? globalColors.black_75 : globalColors.black_60,
+            fontSize: 13,
             ...underlineStyle,
             ...this.props.styleLabel
           }}>
