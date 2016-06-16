@@ -5,7 +5,7 @@ import type {DumbComponentMap} from '../constants/types/more'
 import type {Props} from './friendships'
 
 const propsNormal: Props = {
-  currentTab: 'FOLLOWERS',
+  currentTab: 'Followers',
   onSwitchTab: selected => { console.log('friendships:onSwitchTab', selected) },
   onUserClick: username => { console.log('friendships:onUserClick', username) },
   followers: [
@@ -31,7 +31,7 @@ const dumbComponentMap: DumbComponentMap<Friendships> = {
     'Followers': propsNormal,
     'Following': {
       ...propsNormal,
-      currentTab: 'FOLLOWING'
+      currentTab: 'Following'
     }
   }
 }
