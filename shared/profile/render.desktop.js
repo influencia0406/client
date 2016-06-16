@@ -4,12 +4,44 @@ import _ from 'lodash'
 import {normal as proofNormal} from '../constants/tracker'
 import {Box, Icon, Text, ComingSoon, UserBio, UserProofs, Usernames} from '../common-adapters'
 import {userHeaderColor, UserActions} from './common.desktop'
+import Friendships from './friendships'
 import {globalStyles, globalColors, globalMargins} from '../styles/style-guide'
+import type {Tab as FriendshipsTab} from './friendships'
 import type {Props} from './render'
 
 const HEADER_SIZE = 96
 
-class Render extends Component<void, Props, void> {
+type State = {
+  currentFriendshipsTab: FriendshipsTab,
+  foldersExpanded: boolean
+}
+
+function folderIconProps (folder, style) {
+  const type = folder.isPublic
+    ? (folder.hasData ? 'fa-kb-iconfont-folder-public-has-files' : 'fa-kb-iconfont-folder-public')
+    : (folder.hasData ? 'fa-kb-iconfont-folder-private-has-files' : 'fa-kb-iconfont-folder-private')
+
+  const color = folder.isPublic
+    ? globalColors.yellowGreen
+    : globalColors.darkBlue2
+
+  return {
+    type,
+    style: {...style, color}
+  }
+}
+
+class Render extends Component<void, Props, State> {
+  state: State
+
+  constructor (props: Props) {
+    super(props)
+    this.state = {
+      currentFriendshipsTab: 'Followers',
+      foldersExpanded: false
+    }
+  }
+
   _renderComingSoon () {
     return <ComingSoon />
   }
@@ -26,15 +58,28 @@ class Render extends Component<void, Props, void> {
       proofNotice = `Some of ${this.props.username}'s proofs have changed since you last tracked them.`
     }
 
-    const folders = _.chain(this.props.tlfs)
-      .sortBy('isPublic')
+    let folders = _.chain(this.props.tlfs)
+      .orderBy('isPublic', 'asc')
       .map(folder => (
-        <Box style={styleFolderLine}>
-          <Icon type={folder.isPublic ? 'icon-folder-public-32' : 'icon-folder-private-32'} style={styleFolderIcon} />
-          <Usernames users={folder.users} type={'Body'} />
+        <Box style={styleFolderLine} onClick={() => this.props.onFolderClick(folder)}>
+          <Icon {...folderIconProps(folder, styleFolderIcon)} />
+          <Box>
+            <Text type='Body'>{folder.isPublic ? 'public/' : 'private/'}</Text>
+            <Usernames inline users={folder.users} type='Body' />
+          </Box>
         </Box>
       ))
       .value()
+
+    if (!this.state.foldersExpanded && folders.length > 4) {
+      folders = folders.slice(0, 4)
+      folders.push(
+        <Box style={styleFolderLine} onClick={() => this.setState({foldersExpanded: true})}>
+          <Icon type='fa-ellipsis-h' style={styleFolderIcon} />
+          <Text type='BodySmall' style={{color: globalColors.black_60}}>+ {this.props.tlfs.length - folders.length} more</Text>
+        </Box>
+      )
+    }
 
     return (
       <Box style={styleContainer}>
@@ -72,14 +117,23 @@ class Render extends Component<void, Props, void> {
             {folders}
           </Box>
         </Box>
+        <Friendships
+          style={styleFriendships}
+          currentTab={this.state.currentFriendshipsTab}
+          onSwitchTab={currentFriendshipsTab => this.setState({currentFriendshipsTab})}
+          onUserClick={this.props.onUserClick}
+          followers={this.props.followers}
+          following={this.props.following}
+        />
       </Box>
     )
   }
 }
 
 const styleContainer = {
-  ...globalStyles.flexBoxColumn,
-  position: 'relative'
+  position: 'relative',
+  height: '100%',
+  overflowY: 'auto'
 }
 
 const styleHeader = {
@@ -122,15 +176,20 @@ const styleProofs = {
 const styleFolderLine = {
   ...globalStyles.flexBoxRow,
   ...globalStyles.clickable,
-  alignItems: 'center',
+  alignItems: 'flex-start',
   marginTop: globalMargins.tiny,
   color: globalColors.black_60
 }
 
 const styleFolderIcon = {
   width: 16,
-  height: 16,
-  marginRight: globalMargins.tiny
+  marginTop: 5,
+  marginRight: globalMargins.tiny,
+  textAlign: 'center'
+}
+
+const styleFriendships = {
+  marginTop: globalMargins.medium
 }
 
 export default Render

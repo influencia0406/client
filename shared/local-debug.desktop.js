@@ -42,7 +42,7 @@ if (__DEV__ && process.env.KEYBASE_LOCAL_DEBUG) {
   config.reactPerf = false
   config.overrideLoggedInTab = Tabs.settingsTab
   config.focusOnShow = false
-  config.dumbFilter = ''
+  config.dumbFilter = 'profile'
   config.printRoutes = true
 
   let envJson = null
