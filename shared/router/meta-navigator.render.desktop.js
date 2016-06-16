@@ -17,4 +17,16 @@ class MetaNavigatorRender extends Component {
   }
 }
 
+MetaNavigatorRender.propTypes = {
+  uri: React.PropTypes.object.isRequired,
+  getComponentAtTop: React.PropTypes.func.isRequired,
+  rootComponent: React.PropTypes.oneOfType([
+    React.PropTypes.func,
+    React.PropTypes.shape({
+      parseRoute: React.PropTypes.func.isRequired
+    })
+  ]).isRequired,
+  navigateUp: React.PropTypes.func.isRequired
+}
+
 export default MetaNavigatorRender
