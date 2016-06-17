@@ -5,9 +5,9 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {MuiThemeProvider} from 'material-ui/styles'
 import materialTheme from '../styles/material-theme.desktop'
-import {styleBox} from '../dev/dumb-sheet.render.desktop'
 import {Box, Text} from '../common-adapters'
 import dumbComponentMap from '../dev/dumb-component-map.desktop'
+import DumbSheetItem from './dumb-sheet-item'
 
 const PADDING = 25
 
@@ -15,18 +15,17 @@ ipcRenderer.on('display', (ev, msg) => {
   const map = dumbComponentMap[msg.key]
   const Component = map.component
   const mockKey = msg.mockKey
-  const mock = map.mocks[mockKey]
-  const parentProps = mock.parentProps
-  mock.parentProps = undefined
 
   const displayTree = (
     <MuiThemeProvider muiTheme={materialTheme}>
-      <Box key={mockKey} id='rendered' style={{alignSelf: 'flex-start', ...styleBox, margin: PADDING}}>
-        <Text type='Body' style={{marginBottom: 5}}>{mockKey}</Text>
-        <Box {...parentProps}>
-          <Component key={mockKey} {...mock} />
-        </Box>
-      </Box>
+      <DumbSheetItem
+        key={mockKey}
+        id='rendered'
+        style={{alignSelf: 'flex-start', margin: PADDING}}
+        component={map.component}
+        mockKey={mockKey}
+        mock={map.mocks[mockKey]}
+      />
     </MuiThemeProvider>
   )
 
