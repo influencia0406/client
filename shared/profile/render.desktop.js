@@ -61,7 +61,7 @@ class Render extends Component<void, Props, State> {
     let folders = _.chain(this.props.tlfs)
       .orderBy('isPublic', 'asc')
       .map(folder => (
-        <Box style={styleFolderLine} onClick={() => this.props.onFolderClick(folder)}>
+        <Box key={folder.path} style={styleFolderLine} onClick={() => this.props.onFolderClick(folder)}>
           <Icon {...folderIconProps(folder, styleFolderIcon)} />
           <Box>
             <Text type='Body'>{folder.isPublic ? 'public/' : 'private/'}</Text>
@@ -74,7 +74,7 @@ class Render extends Component<void, Props, State> {
     if (!this.state.foldersExpanded && folders.length > 4) {
       folders = folders.slice(0, 4)
       folders.push(
-        <Box style={styleFolderLine} onClick={() => this.setState({foldersExpanded: true})}>
+        <Box key='more' style={styleFolderLine} onClick={() => this.setState({foldersExpanded: true})}>
           <Icon type='fa-ellipsis-h' style={styleFolderIcon} />
           <Text type='BodySmall' style={{color: globalColors.black_60}}>+ {this.props.tlfs.length - folders.length} more</Text>
         </Box>
