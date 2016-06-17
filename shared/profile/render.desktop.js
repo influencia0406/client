@@ -83,54 +83,70 @@ class Render extends Component<void, Props, State> {
 
     return (
       <Box style={styleContainer}>
-        <Box style={{...styleHeader, backgroundColor: headerColor}} />
-        <Box style={globalStyles.flexBoxRow}>
-          <Box style={styleBioColumn}>
-            <UserBio
-              type='Profile'
-              avatarSize={112}
-              style={{marginTop: 39}}
-              username={this.props.username}
-              userInfo={this.props.userInfo}
-              currentlyFollowing={this.props.currentlyFollowing}
-              trackerState={this.props.trackerState}
-            />
-            <UserActions
-              style={styleActions}
-              trackerState={this.props.trackerState}
-              currentlyFollowing={this.props.currentlyFollowing}
-              onFollow={this.props.onFollow}
-              onUnfollow={this.props.onUnfollow}
-              onAcceptProofs={this.props.onAcceptProofs}
-            />
-          </Box>
-          <Box style={styleProofColumn}>
-            <Box style={styleProofNoticeBox}>
-              {proofNotice && <Text type='BodySmallSemibold' style={{color: globalColors.white}}>{proofNotice}</Text>}
+        <Box style={{...styleScrollHeader, backgroundColor: headerColor}} />
+        <Box style={styleScroller}>
+          <Box style={{...styleHeader, backgroundColor: headerColor}} />
+          <Box style={globalStyles.flexBoxRow}>
+            <Box style={styleBioColumn}>
+              <UserBio
+                type='Profile'
+                avatarSize={112}
+                style={{marginTop: 39}}
+                styleAvatar={{zIndex: 10}}
+                username={this.props.username}
+                userInfo={this.props.userInfo}
+                currentlyFollowing={this.props.currentlyFollowing}
+                trackerState={this.props.trackerState}
+              />
+              <UserActions
+                style={styleActions}
+                trackerState={this.props.trackerState}
+                currentlyFollowing={this.props.currentlyFollowing}
+                onFollow={this.props.onFollow}
+                onUnfollow={this.props.onUnfollow}
+                onAcceptProofs={this.props.onAcceptProofs}
+              />
             </Box>
-            <UserProofs
-              style={styleProofs}
-              username={this.props.username}
-              proofs={this.props.proofs}
-              currentlyFollowing={this.props.currentlyFollowing}
-            />
-            {folders}
+            <Box style={styleProofColumn}>
+              <Box style={styleProofNoticeBox}>
+                {proofNotice && <Text type='BodySmallSemibold' style={{color: globalColors.white}}>{proofNotice}</Text>}
+              </Box>
+              <UserProofs
+                style={styleProofs}
+                username={this.props.username}
+                proofs={this.props.proofs}
+                currentlyFollowing={this.props.currentlyFollowing}
+              />
+              {folders}
+            </Box>
           </Box>
+          <Friendships
+            style={styleFriendships}
+            currentTab={this.state.currentFriendshipsTab}
+            onSwitchTab={currentFriendshipsTab => this.setState({currentFriendshipsTab})}
+            onUserClick={this.props.onUserClick}
+            followers={this.props.followers}
+            following={this.props.following}
+          />
         </Box>
-        <Friendships
-          style={styleFriendships}
-          currentTab={this.state.currentFriendshipsTab}
-          onSwitchTab={currentFriendshipsTab => this.setState({currentFriendshipsTab})}
-          onUserClick={this.props.onUserClick}
-          followers={this.props.followers}
-          following={this.props.following}
-        />
       </Box>
     )
   }
 }
 
 const styleContainer = {
+  position: 'relative',
+  height: '100%',
+}
+
+const styleScrollHeader = {
+  position: 'absolute',
+  width: '100%',
+  height: 48,
+  zIndex: 3
+}
+
+const styleScroller = {
   position: 'relative',
   height: '100%',
   overflowY: 'auto'

@@ -61,7 +61,7 @@ export default class BioRender extends Component {
         <div style={stylesContainer}>
           <Avatar
             onClick={() => this._onClickAvatar()}
-            style={{...globalStyles.clickable, zIndex: 2}}
+            style={{...globalStyles.clickable, zIndex: 2, ...this.props.styleAvatar}}
             url={userInfo.avatar}
             size={avatarSize}
             following={currentlyFollowing}
