@@ -149,6 +149,10 @@ const dumbMap: DumbComponentMap<Profile> = {
       ...propsBase,
       tlfs: folders.slice(0, 3)
     },
+    'Unfollowed - Scrolled': {
+      ...propsBase,
+      afterMount: (c, node) => node.scrollTop = 400
+    },
     'Followed': {
       ...propsBase,
       proofs: proofsTracked,
